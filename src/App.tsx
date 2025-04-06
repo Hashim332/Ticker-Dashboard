@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import StockInfo from "./components/StockInfo";
 
 function App() {
   const [imageUrl, setImageUrl] = useState<string | null>(null);
@@ -27,7 +28,7 @@ function App() {
     >
       <div className="flex flex-col h-full">
         <div className="flex flex-row justify-between">
-          <div>crypto</div>
+          <StockInfo />
           <div>weather</div>
         </div>
         <h1 className="m-auto text-5xl">TIME HERE</h1>
