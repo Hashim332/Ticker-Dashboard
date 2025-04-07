@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
+import StockCard from "./StockCard";
 
-type StockInfo = {
+export type StockInformation = {
   symbol: string;
   name: string;
   close: string;
@@ -10,7 +11,7 @@ type StockInfo = {
 };
 
 type FullApiResponse = {
-  [symbol: string]: StockInfo;
+  [symbol: string]: StockInformation;
 };
 
 export default function StockInfo() {
@@ -25,6 +26,9 @@ export default function StockInfo() {
         );
         const data = await res.json();
         console.log(data);
+        const parsedData = {
+          ...data,
+        };
         setStockData(data);
       } catch (err) {
         console.error(`An error occurred: ${err}`);
@@ -37,8 +41,8 @@ export default function StockInfo() {
 
   if (!stockData) return null;
 
-  const filteredStockData: StockInfo[] = symbols.map((symbol) => {
-    const stock: StockInfo = stockData[symbol];
+  const filteredStockData: StockInformation[] = symbols.map((symbol) => {
+    const stock: StockInformation = stockData[symbol];
     return {
       symbol: stock.symbol,
       name: stock.name,
@@ -49,24 +53,11 @@ export default function StockInfo() {
     };
   });
 
-  console.log(filteredStockData);
-  const stockPrices = filteredStockData.map((stock) => {
-    return (
-      <div className="p-2">
-        <h4 className="">
-          {stock.name}, {stock.symbol}
-        </h4>
-        <p>
-          {stock.close}, <span>{stock.percent_change}</span>
-        </p>
-        <p>
-          {stock.low}, {stock.high}
-        </p>
-      </div>
-    );
-  });
-
   return (
-    <div className="bg-black/80 rounded-2xl text-white">{stockPrices}</div>
+    <div>
+      {filteredStockData.map((stock) => (
+        <StockCard stock={stock} />
+      ))}
+    </div>
   );
 }
