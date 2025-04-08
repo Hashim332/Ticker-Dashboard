@@ -26,28 +26,22 @@ function App() {
       }}
     >
       <div className="flex flex-col h-full">
-        {/* Top section with time (left) and weather (right) */}
         <div className="flex justify-between mb-8">
-          {/* Time on the left */}
           <div className="text-white">
-            <h2 className="text-5xl font-bold drop-shadow-lg">TIME HERE</h2>
+            <h2 className="text-5xl font-light ">TIME HERE</h2>
           </div>
 
-          {/* Weather on the top right, outside dashboard */}
           <div className="bg-white bg-opacity-50 backdrop-blur-sm p-3 rounded-lg">
-            Weather component goes here
+            Weather here
           </div>
         </div>
 
-        {/* Main Dashboard with frosted glass effect */}
-        <div className="flex-1 bg-white/80 rounded-lg shadow-lg p-6">
-          {/* Stock Dashboard - main component */}
+        <div className="flex-1 rounded-lg shadow-lg p-6">
           <div className="flex-1">
             <StockInfo />
           </div>
         </div>
 
-        {/* Photo Credit */}
         <div className="mt-4 text-right">
           <p className="text-white drop-shadow-md">By: {photographer}</p>
         </div>

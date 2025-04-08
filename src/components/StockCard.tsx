@@ -1,32 +1,28 @@
-import { StockInformation } from "./Dashboard";
+import { Stock } from "./Dashboard";
 
 type StockCardProps = {
-  stock: StockInformation;
+  stock: Stock;
 };
 
 export default function StockCard({ stock }: StockCardProps) {
-  console.log("this is ", stock);
   return (
-    <div key={stock.symbol} className="p-3 rounded-lg bg-white/5">
-      <h4 className="text-sm font-semibold text-white">
-        {stock.name}, <span className="text-gray-300">{stock.symbol}</span>
-      </h4>
-      <p className="text-lg font-bold mt-1">
-        ${parseFloat(stock.close).toFixed(2)}
-        <span
-          className={`ml-2 text-sm ${
-            parseFloat(stock.percent_change) >= 0
-              ? "text-green-400"
-              : "text-red-400"
-          }`}
-        >
-          {parseFloat(stock.percent_change).toFixed(2)}%
-        </span>
-      </p>
-      <p className="text-xs text-gray-400 mt-1">
-        Range: {parseFloat(stock.low).toFixed(2)} -{" "}
-        {parseFloat(stock.high).toFixed(2)}
-      </p>
+    <div className="bg-white dark:bg-gray-800 shadow-md rounded-2xl p-4 w-full max-w-sm mx-auto">
+      <div className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
+        {stock.ticker}
+      </div>
+      <div className="flex flex-col gap-1 text-sm text-gray-700 dark:text-gray-300">
+        <div>
+          <span className="font-medium">Price:</span> ${stock.price.toFixed(2)}
+        </div>
+        <div>
+          <span className="font-medium">Change:</span> $
+          {stock.change_amount.toFixed(2)}
+        </div>
+        <div>
+          <span className="font-medium">Change %:</span>{" "}
+          {stock.change_percentage.toFixed(2)}%
+        </div>
+      </div>
     </div>
   );
 }

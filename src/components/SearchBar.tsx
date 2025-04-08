@@ -9,7 +9,7 @@ const SearchBar: React.FC = () => {
   return (
     <form
       onSubmit={handleSubmit}
-      className="flex items-center gap-2 w-full max-w-md mx-auto bg-white/60 p-3 rounded-2xl"
+      className="flex items-center gap-2 w-full max-w-md mx-auto bg-white p-3 rounded-md"
     >
       <input
         type="text"

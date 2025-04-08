@@ -3,12 +3,22 @@ import StockCard from "./StockCard";
 import { roundDownTwoDP } from "../../utils";
 import SearchBar from "./SearchBar";
 
-export type StockInformation = {};
+export type Stock = {
+  ticker: string;
+  price: number;
+  change_amount: number;
+  change_percentage: number;
+  volume: number;
+};
 
-type FullApiResponse = {};
+type ApiResponse = {
+  top_gainers: Stock[];
+  top_losers: Stock[];
+  most_traded: Stock[];
+};
 
 export default function StockInfo() {
-  const [stockData, setStockData] = useState<FullApiResponse | null>(null);
+  const [stockData, setStockData] = useState<ApiResponse | null>(null);
   const apiKey = import.meta.env.VITE_ALPHAVANTAGE_API_KEY;
 
   useEffect(() => {
@@ -24,6 +34,7 @@ export default function StockInfo() {
         const categories = Object.keys(data).filter((key) =>
           Array.isArray(data[key as keyof typeof data])
         );
+
         // rounding down %age change to 2 dp for cleanliness when displaying
         for (const category of categories) {
           data[category] = data[category].map((stock) => {
@@ -47,8 +58,12 @@ export default function StockInfo() {
 
   if (!stockData) return null;
 
-  // const requiredStockData:
+  const defaultStocks = stockData.most_traded.map((stock, index) => {
+    <StockCard stock={stock} key={index} />;
+  });
 
+  // adding some default stock cards
+  // const defaultStocks = stockData
   // const filteredStockData: StockInformation[] = symbols.map((symbol) => {
   //   const stock: StockInformation = stockData[symbol];
   //   return {
@@ -64,7 +79,7 @@ export default function StockInfo() {
   return (
     <div className="p-2">
       <SearchBar />
-      <p></p>
+      {defaultStocks}
     </div>
   );
 }
