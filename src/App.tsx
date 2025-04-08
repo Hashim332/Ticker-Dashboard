@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import StockInfo from "./components/StockInfo";
+import StockInfo from "./components/Dashboard";
 
 function App() {
   const [imageUrl, setImageUrl] = useState<string | null>(null);
@@ -11,7 +11,6 @@ function App() {
         "https://apis.scrimba.com/unsplash/photos/random?orientation=landscape&query=nature"
       );
       const data = await response.json();
-      console.log(data);
       setImageUrl(data.urls.regular);
       setPhotographer(data.user.name);
     }
@@ -27,12 +26,31 @@ function App() {
       }}
     >
       <div className="flex flex-col h-full">
-        <div className="flex flex-row justify-between">
-          <StockInfo />
-          <div>weather</div>
+        {/* Top section with time (left) and weather (right) */}
+        <div className="flex justify-between mb-8">
+          {/* Time on the left */}
+          <div className="text-white">
+            <h2 className="text-5xl font-bold drop-shadow-lg">TIME HERE</h2>
+          </div>
+
+          {/* Weather on the top right, outside dashboard */}
+          <div className="bg-white bg-opacity-50 backdrop-blur-sm p-3 rounded-lg">
+            Weather component goes here
+          </div>
         </div>
-        <h1 className="m-auto text-5xl">TIME HERE</h1>
-        <p>By: {photographer}</p>
+
+        {/* Main Dashboard with frosted glass effect */}
+        <div className="flex-1 bg-white/80 rounded-lg shadow-lg p-6">
+          {/* Stock Dashboard - main component */}
+          <div className="flex-1">
+            <StockInfo />
+          </div>
+        </div>
+
+        {/* Photo Credit */}
+        <div className="mt-4 text-right">
+          <p className="text-white drop-shadow-md">By: {photographer}</p>
+        </div>
       </div>
     </div>
   );

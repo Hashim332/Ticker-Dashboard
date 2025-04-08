@@ -1,4 +1,4 @@
-import { StockInformation } from "./StockInfo";
+import { StockInformation } from "./Dashboard";
 
 type StockCardProps = {
   stock: StockInformation;
