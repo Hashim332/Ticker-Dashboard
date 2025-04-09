@@ -19,14 +19,12 @@ type ApiResponse = {
 
 export default function StockInfo() {
   const [stockData, setStockData] = useState<ApiResponse | null>(null);
-  const apiKey = import.meta.env.VITE_ALPHAVANTAGE_API_KEY;
+  // const apiKey = import.meta.env.VITE_ALPHAVANTAGE_API_KEY;
 
   useEffect(() => {
     async function getStockPrices() {
       try {
-        const res = await fetch(
-          `https://www.alphavantage.co/query?function=TOP_GAINERS_LOSERS&apikey==${apiKey}`
-        );
+        const res = await fetch(`http://localhost:5000/api/stocks`);
         const data = await res.json();
         console.log(data);
 
@@ -58,14 +56,14 @@ export default function StockInfo() {
 
   if (!stockData) return null;
 
-  const defaultStocks = stockData.most_traded.map((stock, index) => {
-    <StockCard stock={stock} key={index} />;
-  });
+  const defaultStocks = stockData?.most_traded?.map((stock, index) => (
+    <StockCard stock={stock} key={index} />
+  ));
 
   return (
     <div className="p-2">
       <SearchBar />
-      {/* {defaultStocks} */}
+      {defaultStocks}
     </div>
   );
 }

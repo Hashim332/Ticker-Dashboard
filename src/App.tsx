@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import StockInfo from "./components/Dashboard";
+import Dashboard from "./components/Dashboard";
+import WeatherCard from "./components/WeatherCard";
 
 function App() {
   const [imageUrl, setImageUrl] = useState<string | null>(null);
@@ -32,13 +33,13 @@ function App() {
           </div>
 
           <div className="bg-white bg-opacity-50 backdrop-blur-sm p-3 rounded-lg">
-            Weather here
+            <WeatherCard />
           </div>
         </div>
 
         <div className="flex-1 rounded-lg shadow-lg p-6">
           <div className="flex-1">
-            <StockInfo />
+            <Dashboard />
           </div>
         </div>
 

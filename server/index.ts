@@ -1,5 +1,7 @@
 import express from "express";
 import cors from "cors";
+import stockRoutes from "./routes/stocks";
+import weatherRoutes from "./routes/weather";
 
 const app = express();
 const PORT = 5000;
@@ -14,6 +16,9 @@ app.use(express.json());
 app.get("/", (req, res) => {
   res.json({ message: "Stock API Server is running" });
 });
+
+app.use("/api/stocks", stockRoutes);
+app.use("/api/weather", weatherRoutes);
 
 // Start the server
 app.listen(PORT, () => {
