@@ -62,24 +62,10 @@ export default function StockInfo() {
     <StockCard stock={stock} key={index} />;
   });
 
-  // adding some default stock cards
-  // const defaultStocks = stockData
-  // const filteredStockData: StockInformation[] = symbols.map((symbol) => {
-  //   const stock: StockInformation = stockData[symbol];
-  //   return {
-  //     symbol: stock.symbol,
-  //     name: stock.name,
-  //     close: stock.close,
-  //     percent_change: stock.percent_change,
-  //     high: stock.high,
-  //     low: stock.low,
-  //   };
-  // });
-
   return (
     <div className="p-2">
       <SearchBar />
-      {defaultStocks}
+      {/* {defaultStocks} */}
     </div>
   );
 }
