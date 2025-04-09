@@ -51,7 +51,7 @@ export default function StockInfo() {
         console.error(`An error occurred: ${err}`);
       }
     }
-    getStockPrices();
+    // getStockPrices();
   }, []);
 
   if (!stockData) return null;
