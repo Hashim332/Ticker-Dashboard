@@ -28,15 +28,13 @@ function App() {
       }}
     >
       <div className="flex flex-col h-full">
-        <div className="flex justify-between mb-8 text-5xl">
+        <div className="flex justify-between mb-8 text-5xl text-white">
           <Clock />
           <WeatherCard />
         </div>
 
         <div className="flex-1 rounded-lg shadow-lg p-6">
-          <div className="flex-1">
-            <Dashboard />
-          </div>
+          <Dashboard />
         </div>
 
         <div className="mt-4 text-right">

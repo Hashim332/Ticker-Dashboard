@@ -9,17 +9,17 @@ const SearchBar: React.FC = () => {
   return (
     <form
       onSubmit={handleSubmit}
-      className="flex items-center gap-2 w-full max-w-md mx-auto bg-white p-3 rounded-md"
+      className="flex items-center gap-2 w-full max-w-md mx-auto bg-white p-3 rounded-4xl font-medium"
     >
       <input
         type="text"
         name="search"
         placeholder="Search..."
-        className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+        className="flex-1 px-4 py-1 border border-gray-300 rounded-2xl focus:outline-none focus:ring-2 focus:ring-black"
       />
       <button
         type="submit"
-        className="px-4 py-2 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors"
+        className="px-4 py-1 bg-black text-white rounded-2xl hover:bg-gray-800 transition-colors"
       >
         Search
       </button>

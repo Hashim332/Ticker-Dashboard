@@ -24,8 +24,6 @@ export default function WeatherCard() {
         );
         const data = await res.json();
         setWeatherData(data);
-
-        console.log(data);
       } catch (err) {
         console.error("Error encountered : ", err);
       }
@@ -36,11 +34,10 @@ export default function WeatherCard() {
   if (!weatherData) {
     return null;
   }
-
   return (
-    <div className="flex items-center p-5 px-7 rounded-4xl backdrop-blur-sm">
-      <div className="flex flex-col text-white">
-        <span className="">{weatherData.main.temp}°C</span>
+    <div className="flex items-center p-5 px-7 rounded-4xl backdrop-blur-sm shadow-md">
+      <div className="flex flex-col">
+        <span className="">{Math.round(weatherData.main.temp)}°C</span>
         <span className="text-sm capitalize">
           {weatherData.weather[0].description}
         </span>

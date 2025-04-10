@@ -1,26 +1,45 @@
-import { Stock } from "./Dashboard";
+import { Stock } from "./StockDashes";
 
 type StockCardProps = {
   stock: Stock;
 };
-
 export default function StockCard({ stock }: StockCardProps) {
+  const price = Number(stock.price);
+  const changeAmount = Number(stock.change_amount);
+  const changePercentage = Number(stock.change_percentage);
+
+  const isPositive = changeAmount > 0;
+  const emoji = isPositive ? "📈" : "📉";
+
   return (
-    <div className="bg-white dark:bg-gray-800 shadow-md rounded-2xl p-4 w-full max-w-sm mx-auto">
-      <div className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
-        {stock.ticker}
+    <div
+      className={`rounded-xl shadow-md p-4 w-56 font-sans text-gray-800 flex flex-col justify-center
+        ${
+          isPositive
+            ? "bg-gradient-to-br from-green-50 via-white to-green-100"
+            : "bg-gradient-to-br from-red-50 via-white to-red-100"
+        }
+      `}
+    >
+      <div className="text-lg font-bold text-gray-900 mb-2 flex items-center gap-2">
+        {emoji} {stock.ticker}
       </div>
-      <div className="flex flex-col gap-1 text-sm text-gray-700 dark:text-gray-300">
+      <div className="space-y-1 text-sm">
         <div>
-          <span className="font-medium">Price:</span> ${stock.price.toFixed(2)}
+          <span className="font-medium text-gray-600">Price:</span> $
+          {price.toFixed(2)}
         </div>
         <div>
-          <span className="font-medium">Change:</span> $
-          {stock.change_amount.toFixed(2)}
+          <span className="font-medium text-gray-600">Change:</span>{" "}
+          <span className={isPositive ? "text-green-600" : "text-red-600"}>
+            ${changeAmount.toFixed(2)}
+          </span>
         </div>
         <div>
-          <span className="font-medium">Change %:</span>{" "}
-          {stock.change_percentage.toFixed(2)}%
+          <span className="font-medium text-gray-600">Change %:</span>{" "}
+          <span className={isPositive ? "text-green-600" : "text-red-600"}>
+            {changePercentage.toFixed(2)}%
+          </span>
         </div>
       </div>
     </div>
