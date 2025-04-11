@@ -58,7 +58,6 @@ export default function StockDashes() {
     getStockPrices();
   }, []);
 
-  console.log("LDKJFA;LDJS", stockData);
   if (!stockData || Object.keys(stockData).length === 0) {
     return <div>Loading...</div>;
   }
@@ -69,7 +68,6 @@ export default function StockDashes() {
       return <StockCard stock={stock} key={index} />;
     });
 
-  console.log("default stocks: ", defaultStocks);
   return (
     <div className="p-4">
       <div className="flex flex-wrap justify-center gap-6">
