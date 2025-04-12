@@ -23,7 +23,7 @@ export default function StockDashes() {
   useEffect(() => {
     async function getStockPrices() {
       try {
-        const res = await fetch(`http://localhost:5000/api/stocks`);
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/stocks`);
         const data = await res.json();
         console.log(data);
 

@@ -19,7 +19,8 @@ export default function StockCard({ stock }: StockCardProps) {
             ? "bg-gradient-to-br from-green-50 via-white to-green-100"
             : "bg-gradient-to-br from-red-50 via-white to-red-100"
         }
-      `}
+       border border-white
+`}
     >
       <div className="text-lg font-bold text-gray-900 mb-2 flex items-center gap-2">
         {emoji} {stock.ticker}

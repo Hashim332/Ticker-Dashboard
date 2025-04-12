@@ -3,7 +3,7 @@ import StockDashes from "./StockDashes";
 
 export default function Dashboard() {
   return (
-    <div className="">
+    <div className="m-auto">
       <SearchBar />
       <StockDashes />
     </div>

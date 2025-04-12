@@ -14,7 +14,7 @@ const SearchBar: React.FC = () => {
       <input
         type="text"
         name="search"
-        placeholder="Search..."
+        placeholder="Enter stock here..."
         className="flex-1 px-4 py-1 border border-gray-300 rounded-2xl focus:outline-none focus:ring-2 focus:ring-black"
       />
       <button

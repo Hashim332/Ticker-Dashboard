@@ -71,18 +71,16 @@ const WeatherCard = () => {
 
     // Clear: 800
     if (weatherId === 800) {
-      return temp > 20
-        ? "bg-gradient-to-r from-yellow-300 to-orange-300" // Warm and sunny
-        : "bg-gradient-to-r from-blue-300 to-cyan-200"; // Cold and sunny
+      return "bg-gradient-to-r from-yellow-500 to-orange-600";
     }
 
     // Clouds: 801-899
     if (weatherId > 800 && weatherId < 900) {
-      return "bg-gradient-to-r from-gray-300 to-gray-400";
+      return "bg-gradient-to-r from-gray-400 to-gray-600";
     }
 
-    // Default
-    return "bg-gradient-to-r from-blue-200 to-blue-300";
+    // Default fallback
+    return "bg-gradient-to-r from-gray-200 to-gray-300";
   };
 
   if (error) {
