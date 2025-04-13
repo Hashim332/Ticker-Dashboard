@@ -20,7 +20,7 @@ export default function TimeDisplay(): React.ReactElement {
   const minutes: string = currentTime.getMinutes().toString().padStart(2, "0");
 
   return (
-    <div className="flex items-center backdrop-blur-sm p-7 rounded-4xl shadow-md font-light ">
+    <div className="flex items-center backdrop-blur-sm p-7 rounded-4xl shadow-md font-light">
       {hours}:{minutes}
     </div>
   );

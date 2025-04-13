@@ -7,7 +7,7 @@ import dotenv from "dotenv";
 dotenv.config();
 
 const app = express();
-const PORT = 8000;
+const PORT = 5000;
 
 // Enable CORS for frontend requests
 app.use(cors());
