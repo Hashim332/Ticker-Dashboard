@@ -6,7 +6,7 @@ import { getFirestore } from "firebase/firestore/lite";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyDqH3iUK46UUiEGbVsMNk39i8nzpMdwKXs",
+  apiKey: process.env.FIREBASE_API_KEY,
   authDomain: "finance-dash-f1261.firebaseapp.com",
   projectId: "finance-dash-f1261",
   storageBucket: "finance-dash-f1261.firebasestorage.app",
