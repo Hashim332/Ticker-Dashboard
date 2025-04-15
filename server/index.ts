@@ -14,7 +14,7 @@ import {
 dotenv.config();
 
 const app = express();
-const PORT = 5000;
+const PORT = 8000;
 
 // Enable CORS for frontend requests
 // Parse JSON bodies in requests
