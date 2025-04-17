@@ -1,12 +1,7 @@
 import express from "express";
 import { db } from "../firebase";
-// import { collection, getDocs } from "firebase/firestore/lite";
 import { doc, setDoc } from "firebase/firestore";
-import {
-  //   clerkClient,
-  //   requireAuth,
-  getAuth,
-} from "@clerk/express";
+import { clerkClient, requireAuth, getAuth } from "@clerk/express";
 
 const router = express.Router();
 
@@ -35,8 +30,10 @@ router.use(express.json());
 //   });
 // });
 
-router.post("/post", async (req, res) => {
-  const { userId, tickers } = req.body;
+router.post("/post", requireAuth(), async (req, res) => {
+  const { userId } = getAuth(req);
+  const { tickers } = req.body;
+  console.log("USER ID IS VALID: ", userId);
 
   if (!userId || !tickers) {
     res.status(400).json({ error: "userId and tickers are required" });
