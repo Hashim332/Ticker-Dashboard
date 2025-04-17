@@ -20,7 +20,6 @@ const WeatherCard = () => {
               }/weather?lat=${latitude}&lon=${longitude}`
             );
             const data = await res.json();
-            console.log(data);
             setWeatherData(data);
           } catch (err) {
             setError("❌ Failed to fetch weather");
@@ -42,7 +41,6 @@ const WeatherCard = () => {
     if (!weatherData) return "bg-gradient-to-r from-gray-200 to-gray-300";
 
     const weatherId = weatherData.weather[0].id;
-    const temp = weatherData.main.temp;
 
     // Thunderstorm: 200-299
     if (weatherId >= 200 && weatherId < 300) {

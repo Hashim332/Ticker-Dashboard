@@ -10,6 +10,8 @@ import {
   requireAuth,
   getAuth,
 } from "@clerk/express";
+import { doc, setDoc } from "firebase/firestore";
+import { db } from "./firebase";
 
 dotenv.config();
 

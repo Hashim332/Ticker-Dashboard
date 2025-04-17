@@ -1,16 +1,16 @@
 import express from "express";
-// import { db } from "../firebase";
+import { db } from "../firebase";
 // import { collection, getDocs } from "firebase/firestore/lite";
+import { doc, setDoc } from "firebase/firestore";
 import {
-  clerkMiddleware,
-  //   clerkMiddleware,
   //   clerkClient,
   //   requireAuth,
   getAuth,
 } from "@clerk/express";
 
 const router = express.Router();
-router.use(clerkMiddleware());
+
+router.use(express.json());
 
 // router.get("/test", async (_req, res) => {
 //   //   const usersCol = collection(db, "Users");
@@ -26,13 +26,33 @@ router.use(clerkMiddleware());
 //   });
 // });
 
-router.get("/test", async (req, res) => {
-  const { userId } = getAuth(req);
-  console.log(userId);
+// router.get("/test", async (req, res) => {
+//   const { userId } = getAuth(req);
+//   console.log(userId);
 
-  res.json({
-    message: `Stock API Server is running, USER ID: ${userId}`,
-  });
+//   res.json({
+//     message: ` USER ID: ${userId}`,
+//   });
+// });
+
+router.post("/post", async (req, res) => {
+  const { userId, tickers } = req.body;
+
+  if (!userId || !tickers) {
+    res.status(400).json({ error: "userId and tickers are required" });
+    return;
+  }
+
+  try {
+    await setDoc(doc(db, "users", userId), {
+      tickers: tickers,
+    });
+
+    res.status(200).json({ message: "Data saved successfully!" });
+  } catch (err) {
+    console.error("SERVER ERROR OCCURRED: ", err);
+    res.status(500).json({ error: "Failed to save data" });
+  }
 });
 
 export default router;

@@ -1,17 +1,17 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { getFirestore } from "firebase/firestore/lite";
+import { getFirestore } from "firebase/firestore";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
   apiKey: process.env.FIREBASE_API_KEY,
-  authDomain: "finance-dash-f1261.firebaseapp.com",
-  projectId: "finance-dash-f1261",
-  storageBucket: "finance-dash-f1261.firebasestorage.app",
-  messagingSenderId: "642689646484",
-  appId: "1:642689646484:web:f9d8a0ccf07c0b20941981",
+  authDomain: "finance-dash-36f23.firebaseapp.com",
+  projectId: "finance-dash-36f23",
+  storageBucket: "finance-dash-36f23.firebasestorage.app",
+  messagingSenderId: "551177573300",
+  appId: "1:551177573300:web:17fcd431ee1927608098e1",
 };
 
 // Initialize Firebase

@@ -5,6 +5,7 @@ import Clock from "./components/Clock";
 import { SignedIn, SignedOut } from "@clerk/clerk-react";
 import SignInBtn from "./components/SignInBtn";
 import StyledUserButton from "./components/StyledUserButton";
+import Test from "./components/TEST";
 
 function App() {
   const [imageUrl, setImageUrl] = useState<string | null>(null);
@@ -53,6 +54,7 @@ function App() {
           <div className="mt-4 text-right">
             <p className="text-white drop-shadow-md">By: {photographer}</p>
           </div>
+          <Test />
         </div>
       </SignedIn>
     </div>
