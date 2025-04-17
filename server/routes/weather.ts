@@ -1,5 +1,5 @@
 import express from "express";
-import fetch from "node-fetch"; // You might need to install this
+import fetch from "node-fetch";
 import { WeatherApiResponse } from "../../utils";
 import "dotenv/config";
 

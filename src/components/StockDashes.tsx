@@ -20,12 +20,26 @@ type ApiResponse = {
 export default function StockDashes() {
   const [stockData, setStockData] = useState<ApiResponse | null>(null);
 
+  stockData && console.log("stock data:", stockData);
+
+  function removeCard(ticker: string) {
+    setStockData((prevStockData) => {
+      if (!prevStockData) return prevStockData;
+
+      return {
+        ...prevStockData,
+        most_actively_traded: prevStockData.most_actively_traded.filter(
+          (stock) => stock.ticker !== ticker
+        ),
+      };
+    });
+  }
+
   useEffect(() => {
     async function getStockPrices() {
       try {
         const res = await fetch(`${import.meta.env.VITE_API_URL}/stocks`);
         const data = await res.json();
-        console.log(data);
 
         // filter data for only the key to object arrays
         const categories = Object.keys(data).filter((key) =>
@@ -65,7 +79,7 @@ export default function StockDashes() {
   const defaultStocks =
     stockData &&
     stockData.most_actively_traded.map((stock, index) => {
-      return <StockCard stock={stock} key={index} />;
+      return <StockCard stock={stock} key={index} removeCard={removeCard} />;
     });
 
   return (

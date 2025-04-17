@@ -10,31 +10,34 @@ export default function SearcBar() {
   }
 
   async function sendTickers() {
-    try {
-      const token = await getToken();
+    if (inputValue) {
+      try {
+        const token = await getToken();
 
-      const res = await fetch("http://localhost:8000/api/backend/post", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({
-          tickers: [inputValue],
-        }),
-      });
+        const res = await fetch("http://localhost:8000/api/backend/post", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({
+            tickers: [inputValue],
+          }),
+        });
 
-      const data = await res.json();
-      console.log(data);
-    } catch (err) {
-      console.error("frontend error occurred: ", err);
+        const data = await res.json();
+        console.log(data);
+      } catch (err) {
+        console.error("frontend error occurred: ", err);
+      }
+      setInputValue("");
     }
   }
 
   return (
     <div className="flex items-center gap-2 w-full max-w-md mx-auto bg-white p-3 rounded-4xl font-medium">
       <input
-        value={inputValue}
+        value={inputValue.toUpperCase()}
         onChange={handleChange}
         type="text"
         name="search"
@@ -43,9 +46,9 @@ export default function SearcBar() {
       />
       <button
         onClick={sendTickers}
-        className="px-4 py-1 bg-black text-white rounded-2xl hover:bg-gray-800 transition-colors hover:cursor-pointer"
+        className="px-4 py-1 bg-black text-white rounded-2xl hover:bg-gray-700 transition-colors hover:cursor-pointer"
       >
-        Search
+        + Add
       </button>
     </div>
   );
