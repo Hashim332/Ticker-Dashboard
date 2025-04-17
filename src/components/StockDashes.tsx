@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import StockCard from "./StockCard";
 import { roundDownTwoDP } from "../../utils";
+import QuickAdd from "./QuickAdd";
 
 // API response keeps values as strings (e.g., "12%")
 export type Stock = {
@@ -84,6 +85,7 @@ export default function StockDashes() {
 
   return (
     <div className="p-4">
+      <QuickAdd />
       <div className="flex flex-wrap justify-center gap-6">
         {defaultStocks.slice(0, 9)}
       </div>
