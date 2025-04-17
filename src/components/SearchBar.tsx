@@ -1,30 +1,52 @@
-import React from "react";
+import { useState } from "react";
+import { useAuth } from "@clerk/clerk-react";
 
-const SearchBar: React.FC = () => {
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    // Add your functionality here
-  };
+export default function SearcBar() {
+  const [inputValue, setInputValue] = useState("");
+  const { getToken } = useAuth();
+
+  function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
+    setInputValue(e.target.value);
+  }
+
+  async function sendTickers() {
+    try {
+      const token = await getToken();
+
+      const res = await fetch("http://localhost:8000/api/backend/post", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          tickers: [inputValue],
+        }),
+      });
+
+      const data = await res.json();
+      console.log(data);
+    } catch (err) {
+      console.error("frontend error occurred: ", err);
+    }
+  }
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="flex items-center gap-2 w-full max-w-md mx-auto bg-white p-3 rounded-4xl font-medium"
-    >
+    <div className="flex items-center gap-2 w-full max-w-md mx-auto bg-white p-3 rounded-4xl font-medium">
       <input
+        value={inputValue}
+        onChange={handleChange}
         type="text"
         name="search"
         placeholder="Enter stock here..."
         className="flex-1 px-4 py-1 border border-gray-300 rounded-2xl focus:outline-none focus:ring-2 focus:ring-black"
       />
       <button
-        type="submit"
-        className="px-4 py-1 bg-black text-white rounded-2xl hover:bg-gray-800 transition-colors"
+        onClick={sendTickers}
+        className="px-4 py-1 bg-black text-white rounded-2xl hover:bg-gray-800 transition-colors hover:cursor-pointer"
       >
         Search
       </button>
-    </form>
+    </div>
   );
-};
-
-export default SearchBar;
+}

@@ -41,9 +41,13 @@ router.post("/post", requireAuth(), async (req, res) => {
   }
 
   try {
-    await setDoc(doc(db, "users", userId), {
-      tickers: tickers,
-    });
+    await setDoc(
+      doc(db, "users", userId),
+      {
+        tickers: tickers,
+      },
+      { merge: true }
+    );
 
     res.status(200).json({ message: "Data saved successfully!" });
   } catch (err) {
