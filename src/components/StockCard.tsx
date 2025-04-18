@@ -1,13 +1,14 @@
-import { Stock } from "./StockDashes";
+import { UnifiedStock } from "../../utils";
 
 type StockCardProps = {
-  stock: Stock;
+  stock: UnifiedStock;
   removeCard: (ticker: string) => void;
 };
+
 export default function StockCard({ stock, removeCard }: StockCardProps) {
-  const price = Number(stock.price);
-  const changeAmount = Number(stock.change_amount);
-  const changePercentage = Number(stock.change_percentage);
+  const price = stock.currentPrice;
+  const changeAmount = stock.changeAmount;
+  const changePercentage = stock.changePercentage;
 
   const isPositive = changeAmount > 0;
   const emoji = isPositive ? "📈" : "📉";
