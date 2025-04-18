@@ -2,16 +2,9 @@ import express from "express";
 import cors from "cors";
 import stockRoutes from "./routes/stocks";
 import weatherRoutes from "./routes/weather";
-import backendRoutes from "./routes/backend";
+import validateAndSaveRoutes from "./routes/validate-and-save";
 import dotenv from "dotenv";
-import {
-  clerkMiddleware,
-  clerkClient,
-  requireAuth,
-  getAuth,
-} from "@clerk/express";
-import { doc, setDoc } from "firebase/firestore";
-import { db } from "./firebase";
+import { clerkMiddleware, getAuth } from "@clerk/express";
 
 dotenv.config();
 
@@ -38,7 +31,7 @@ app.get("/", async (req, res) => {
 // route setup
 app.use("/api/stocks", stockRoutes);
 app.use("/api/weather", weatherRoutes);
-app.use("/api/backend", backendRoutes);
+app.use("/api/", validateAndSaveRoutes);
 
 app.listen(PORT, () => {
   console.log(`Server running at http://localhost:${PORT}`);

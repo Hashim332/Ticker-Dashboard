@@ -6,7 +6,7 @@ export default function SearcBar() {
   const { getToken } = useAuth();
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
-    setInputValue(e.target.value);
+    setInputValue(e.target.value.toUpperCase());
   }
 
   async function sendTickers() {
@@ -14,14 +14,14 @@ export default function SearcBar() {
       try {
         const token = await getToken();
 
-        const res = await fetch("http://localhost:8000/api/backend/post", {
+        const res = await fetch("http://localhost:8000/api/validate-and-save", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
           },
           body: JSON.stringify({
-            tickers: [inputValue],
+            ticker: inputValue,
           }),
         });
 
@@ -37,7 +37,7 @@ export default function SearcBar() {
   return (
     <div className="flex items-center gap-2 w-full max-w-md mx-auto bg-white p-3 rounded-4xl font-medium">
       <input
-        value={inputValue.toUpperCase()}
+        value={inputValue}
         onChange={handleChange}
         type="text"
         name="search"
