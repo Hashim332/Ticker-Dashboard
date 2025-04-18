@@ -1,7 +1,7 @@
 import express from "express";
 import { db } from "../firebase";
-import { doc, setDoc, updateDoc, arrayUnion } from "firebase/firestore";
-import { clerkClient, requireAuth, getAuth } from "@clerk/express";
+import { doc, setDoc, arrayUnion } from "firebase/firestore";
+import { requireAuth, getAuth } from "@clerk/express";
 
 const router = express.Router();
 

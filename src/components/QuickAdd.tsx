@@ -3,8 +3,8 @@ export default function QuickAdd() {
     console.log("quick added PLTR");
   }
   return (
-    <div className="w-1/2 my-4 py-4 bg-white rounded-md shadow-sm m-auto">
-      <h1 className="pl-14 pb-4 text-xl">Quick add</h1>
+    <div className="w-1/2 my-4 py-4 bg-white rounded-md shadow-sm m-auto text-center">
+      <h1 className="pb-4 text-xl">Quick add</h1>
       <div className="flex flex-row justify-evenly">
         <button
           onClick={quickAdd}
