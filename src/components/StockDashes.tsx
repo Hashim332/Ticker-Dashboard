@@ -12,16 +12,53 @@ export type Stock = {
   volume: string;
 };
 
-type ApiResponse = {
+export interface UnifiedStock {
+  ticker: string;
+  currentPrice: number;
+  changeAmount: number;
+  changePercentage: number;
+  highPrice?: number; // Optional fields for extra data
+  lowPrice?: number;
+  openPrice?: number;
+  previousClose?: number;
+  dataSource: "alphavantage" | "finnhub"; // Track the source
+}
+
+interface AlphaVantageResponse {
   top_gainers: Stock[];
   top_losers: Stock[];
   most_actively_traded: Stock[];
-};
+}
 
+function alphaVantageToUnified(ticker: string, data: any): UnifiedStock {
+  return {
+    ticker,
+    currentPrice: Number(data.price),
+    changeAmount: Number(data.change_amount),
+    changePercentage: Number(data.change_percentage),
+    dataSource: "alphavantage",
+  };
+}
+
+function finnhubToUnified(ticker: string, data: any): UnifiedStock {
+  return {
+    ticker,
+    currentPrice: data.c,
+    changeAmount: data.d,
+    changePercentage: data.dp,
+    highPrice: data.h,
+    lowPrice: data.l,
+    openPrice: data.o,
+    previousClose: data.pc,
+    dataSource: "finnhub",
+  };
+}
+// TODO:
+// figure out wtf to do with the apiresposnetounified functions
+// stop displaying stocks, move that functionality to quick add
+// render stock when user clicks add from the existing data i.e work with the object that comes back and render a stock onclick?
 export default function StockDashes() {
-  const [stockData, setStockData] = useState<ApiResponse | null>(null);
-
-  stockData && console.log("stock data:", stockData);
+  const [stockData, setStockData] = useState<AlphaVantageResponse | null>(null);
 
   function removeCard(ticker: string) {
     setStockData((prevStockData) => {
@@ -41,6 +78,7 @@ export default function StockDashes() {
       try {
         const res = await fetch(`${import.meta.env.VITE_API_URL}/stocks`);
         const data = await res.json();
+        const fittedData = alphaVantageToUnified(data.ticker, data);
 
         // filter data for only the key to object arrays
         const categories = Object.keys(data).filter((key) =>

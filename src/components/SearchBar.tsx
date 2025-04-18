@@ -6,7 +6,7 @@ export default function SearcBar() {
   const { getToken } = useAuth();
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
-    setInputValue(e.target.value.toUpperCase());
+    setInputValue(e.target.value.toUpperCase()); // to uppercase is here
   }
 
   async function sendTickers() {
@@ -24,14 +24,13 @@ export default function SearcBar() {
             ticker: inputValue,
           }),
         });
-
         const data = await res.json();
         console.log(data);
       } catch (err) {
         console.error("frontend error occurred: ", err);
       }
-      setInputValue("");
     }
+    setInputValue("");
   }
 
   return (
