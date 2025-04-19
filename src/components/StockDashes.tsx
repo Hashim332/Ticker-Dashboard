@@ -19,25 +19,63 @@ export default function StockDashes() {
   const { getToken } = useAuth();
 
   useEffect(() => {
+    let isMounted = true;
+
     async function getUserStocks() {
       try {
-        const res = await fetch("http://localhost:8000/api/user-stocks");
-        if (!res.ok) {
-          throw new Error(`Error ${res.status}: ${res.statusText}`);
-        }
+        const token = await getToken();
+        const res = await fetch("http://localhost:8000/api/user-stocks", {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        if (!res.ok) throw new Error(`Error ${res.status}: ${res.statusText}`);
+
         const data = await res.json();
+        if (isMounted) {
+          console.log("successfully loaded users saved data: ", data);
+          setStocks(data); // Replace instead of append
+        }
       } catch (err) {
-        console.error("Request failed:", err.message);
+        console.error("Request failed:", err);
       }
     }
-    getUserStocks();
-  }, []);
 
-  function removeCard(ticker: string) {
+    getUserStocks();
+
+    return () => {
+      isMounted = false;
+    };
+  }, [getToken]);
+
+  async function removeCard(ticker: string) {
+    try {
+      const token = await getToken();
+      const res = await fetch(
+        `http://localhost:8000/api/delete-stock/${ticker}`,
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (!res.ok) {
+        throw new Error("you on some bullshit son 😂");
+      }
+      const data = await res.json();
+      console.log("delete button delete from db (i think) ", data);
+    } catch (err) {
+      console.error(err);
+    }
+
     setStocks((prevStocks) => {
       if (!prevStocks) return prevStocks;
-
-      const newArray = prevStocks.filter((stock) => stock.ticker === ticker);
+      const newArray = prevStocks.filter((stock) => stock.ticker !== ticker);
       return newArray;
     });
   }

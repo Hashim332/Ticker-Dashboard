@@ -2,17 +2,13 @@ import express from "express";
 import { requireAuth, getAuth } from "@clerk/express";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../firebase";
+import { DocumentData } from "firebase/firestore";
 
 const router = express.Router();
 
 router.use(express.json());
 
-type userData = {
-  tickers: string[];
-};
-
-async function getLiveStockData(userData: userData) {
-  console.log(Array.isArray(userData.tickers)); // Should log 'true' if tickers is an array
+async function getLiveStockData(userData: DocumentData) {
   try {
     const stockDataPromises = userData.tickers.map(async (ticker: string) => {
       try {
@@ -33,7 +29,10 @@ async function getLiveStockData(userData: userData) {
     });
 
     const stockData = await Promise.all(stockDataPromises);
-    console.log("this should theortically be stock data ->", stockData);
+    console.log(
+      "this should theortically be stock data ->",
+      stockData.filter((data) => data !== null)
+    );
     return stockData.filter((data) => data !== null); // Filter out any nulls from failed API calls
   } catch (error) {
     console.error("Error in getLiveStockData:", error);
@@ -54,9 +53,8 @@ router.get("/user-stocks", requireAuth(), async (req, res) => {
     const docSnap = await getDoc(docRef);
     if (docSnap.exists()) {
       const userData = docSnap.data();
-      console.log("Document data:", userData);
-
-      const userStockData = getLiveStockData(userData);
+      const userStockData = await getLiveStockData(userData);
+      // res.status(200).json(userData);
       res.status(200).json(userStockData);
     } else {
       // docSnap.data() will be undefined in this case
