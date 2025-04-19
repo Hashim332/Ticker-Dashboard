@@ -1,7 +1,12 @@
 import { useState } from "react";
 import { useAuth } from "@clerk/clerk-react";
+import { Stock } from "../../utils";
 
-export default function SearcBar() {
+type SearchBarProps = {
+  setStocks: React.Dispatch<React.SetStateAction<Stock[]>>;
+};
+
+export default function SearcBar({ setStocks }: SearchBarProps) {
   const [inputValue, setInputValue] = useState("");
   const { getToken } = useAuth();
 
@@ -26,6 +31,7 @@ export default function SearcBar() {
         });
         const data = await res.json();
         console.log(data);
+        setStocks((prevStocks) => [...prevStocks, data]);
       } catch (err) {
         console.error("frontend error occurred: ", err);
       }

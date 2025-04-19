@@ -7,7 +7,7 @@ const router = express.Router();
 
 router.use(express.json());
 
-router.delete("/delete-stock", requireAuth(), async (req, res) => {
+router.delete("/delete-stock/:ticker", requireAuth(), async (req, res) => {
   const { userId } = getAuth(req);
   const { ticker } = req.params;
 
@@ -31,9 +31,7 @@ router.delete("/delete-stock", requireAuth(), async (req, res) => {
       res.status(400).json({ error: "User has no tickers or invalid format" });
     }
 
-    console.log(userData);
-
-    const updatedUserData = userData.filter(
+    const updatedUserData = userData.tickers.filter(
       (placeholder: string) => placeholder !== ticker
     );
 

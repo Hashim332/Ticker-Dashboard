@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import StockCard from "./StockCard";
-// import { roundDownTwoDP } from "../../utils";
 import QuickAdd from "./QuickAdd";
 import { Stock } from "../../utils";
 import { useAuth } from "@clerk/clerk-react";
+import SearchBar from "./SearchBar";
 
 // TODO:
 // get ride of the alphavantage api, only using for most traded. instead just reccommend 5 popular stick
@@ -111,18 +111,27 @@ export default function StockDashes() {
   }
 
   return (
-    <div className="p-4">
-      <QuickAdd onClick={addFromQuickAdd} popularStocks={popularStocks} />
-      <div className="flex flex-wrap justify-center gap-6">
-        {stocks.map((stock) => (
-          <StockCard key={stock.ticker} stock={stock} removeCard={removeCard} />
-        ))}
+    <div>
+      <div>
+        <SearchBar setStocks={setStocks} />
       </div>
-      {alert && (
-        <div className="fixed bottom-4 left-1/2 transform -translate-x-1/2 bg-red-500 text-white px-4 py-2 rounded-lg shadow-lg z-50 transition-opacity duration-300">
-          {alert}
+      <div className="p-4">
+        <QuickAdd onClick={addFromQuickAdd} popularStocks={popularStocks} />
+        <div className="flex flex-wrap justify-center gap-6">
+          {stocks.map((stock) => (
+            <StockCard
+              key={stock.ticker}
+              stock={stock}
+              removeCard={removeCard}
+            />
+          ))}
         </div>
-      )}
+        {alert && (
+          <div className="fixed bottom-4 left-1/2 transform -translate-x-1/2 bg-red-500 text-white px-4 py-2 rounded-lg shadow-lg z-50 transition-opacity duration-300">
+            {alert}
+          </div>
+        )}
+      </div>
     </div>
   );
 }
