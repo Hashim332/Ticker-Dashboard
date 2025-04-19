@@ -1,8 +1,8 @@
 import express from "express";
 import cors from "cors";
-import stockRoutes from "./routes/stocks";
 import weatherRoutes from "./routes/weather";
 import validateAndSaveRoutes from "./routes/validate-and-save";
+import userStocksRoutes from "./routes/user-stocks";
 import dotenv from "dotenv";
 import { clerkMiddleware, getAuth } from "@clerk/express";
 
@@ -29,9 +29,9 @@ app.get("/", async (req, res) => {
 });
 
 // route setup
-app.use("/api/stocks", stockRoutes);
 app.use("/api/weather", weatherRoutes);
 app.use("/api/", validateAndSaveRoutes);
+app.use("/api", userStocksRoutes);
 
 app.listen(PORT, () => {
   console.log(`Server running at http://localhost:${PORT}`);

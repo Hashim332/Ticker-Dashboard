@@ -1,92 +1,90 @@
-import { useEffect, useState, ReactElement } from "react";
+import { useEffect, useState } from "react";
 import StockCard from "./StockCard";
-import { roundDownTwoDP } from "../../utils";
+// import { roundDownTwoDP } from "../../utils";
 import QuickAdd from "./QuickAdd";
-import {
-  AlphaVantageResponse,
-  UnifiedStock,
-  alphaVantageToUnified,
-  finnhubToUnified,
-} from "../../utils";
+import { Stock } from "../../utils";
+import { useAuth } from "@clerk/clerk-react";
+
 // TODO:
-// figure out wtf to do with the apiresposnetounified functions
-// stop displaying stocks, move that functionality to quick add
-// render stock when user clicks add from the existing data i.e work with the object that comes back and render a stock onclick?
+// get ride of the alphavantage api, only using for most traded. instead just reccommend 5 popular stick
+// do type validation on the backend if needed so logic moved to the backend
+// button click on quick add should write to db
+// render stock from users input/interaction
 
 export default function StockDashes() {
-  const [stockData, setStockData] = useState<AlphaVantageResponse | null>(null);
-  const [stockCards, setStockCards] = useState<ReactElement[]>([]);
-  const [top10Traded, setTop10Traded] = useState<UnifiedStock[]>();
-
-  function removeCard(ticker: string) {
-    setStockData((prevStockData) => {
-      if (!prevStockData) return prevStockData;
-
-      return {
-        ...prevStockData,
-        most_actively_traded: prevStockData.most_actively_traded.filter(
-          (stock) => stock.ticker !== ticker
-        ),
-      };
-    });
-  }
+  const [stocks, setStocks] = useState<Stock[]>([]);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const popularStocks = ["GOOG", "AAPL", "MSFT", "NVDA", "AMZN"];
+  const [alert, setAlert] = useState("");
+  const { getToken } = useAuth();
 
   useEffect(() => {
-    async function getStockPrices() {
+    async function getUserStocks() {
       try {
-        const res = await fetch(`${import.meta.env.VITE_API_URL}/stocks`);
-        const data = await res.json(); //
-
-        // filter data for only the key to object arrays
-        const categories = Object.keys(data).filter((key) =>
-          Array.isArray(data[key as keyof typeof data])
-        );
-
-        // data cleaning should happen in stockCard
-        // rounding down %age change to 2 dp for cleanliness when displaying
-        for (const category of categories) {
-          data[category] = data[category].map((stock: UnifiedStock) => {
-            // Handle the change_percentage as a string
-            const rawPercent = stock.changePercentage;
-            const numericPercent = Number(rawPercent);
-            const rounded = roundDownTwoDP(numericPercent);
-            return {
-              ...stock,
-              change_percentage: rounded.toString(), // Keep it as a string for consistency
-              // Convert other string properties to numbers if needed for further processing
-              price: Number(stock.currentPrice),
-              change_amount: Number(stock.changeAmount),
-            };
-          });
+        const res = await fetch("http://localhost:8000/api/user-stocks");
+        if (!res.ok) {
+          throw new Error(`Error ${res.status}: ${res.statusText}`);
         }
-        setStockData(data);
-        setTop10Traded(data.most_actively_traded.slice(0, 5));
+        const data = await res.json();
       } catch (err) {
-        console.error(`An error occurred: ${err}`);
+        console.error("Request failed:", err.message);
       }
     }
-    getStockPrices();
+    getUserStocks();
   }, []);
 
-  if (!stockData || Object.keys(stockData).length === 0) {
-    return <div>Loading...</div>;
+  function removeCard(ticker: string) {
+    setStocks((prevStocks) => {
+      if (!prevStocks) return prevStocks;
+
+      const newArray = prevStocks.filter((stock) => stock.ticker === ticker);
+      return newArray;
+    });
   }
 
-  const defaultStocks =
-    stockData &&
-    stockData.most_actively_traded.map((stock, index) => {
-      return <StockCard stock={stock} key={index} removeCard={removeCard} />;
-    });
+  async function addFromQuickAdd(ticker: string) {
+    const isAlreadyAdded = stocks.some((stock) => stock.ticker === ticker);
+    if (isAlreadyAdded) {
+      console.log("You've already added this one!");
+      setAlert("Stock already added!");
+      setTimeout(() => setAlert(""), 3000);
+    } else {
+      try {
+        const token = await getToken();
 
-  function addFromQuickAdd() {
-    setStockCards(defaultStocks.slice(0, 9));
-    console.log("quick added");
+        const res = await fetch("http://localhost:8000/api/validate-and-save", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({
+            ticker: ticker,
+          }),
+        });
+        const data = await res.json();
+        console.log(data);
+        setStocks((prevStocks) => [...prevStocks, data]);
+      } catch (err) {
+        console.error("frontend error occurred: ", err);
+      }
+      console.log("quick added");
+    }
   }
 
   return (
     <div className="p-4">
-      <QuickAdd onClick={addFromQuickAdd} top10Traded={top10Traded} />
-      <div className="flex flex-wrap justify-center gap-6">{stockCards}</div>
+      <QuickAdd onClick={addFromQuickAdd} popularStocks={popularStocks} />
+      <div className="flex flex-wrap justify-center gap-6">
+        {stocks.map((stock) => (
+          <StockCard key={stock.ticker} stock={stock} removeCard={removeCard} />
+        ))}
+      </div>
+      {alert && (
+        <div className="fixed bottom-4 left-1/2 transform -translate-x-1/2 bg-red-500 text-white px-4 py-2 rounded-lg shadow-lg z-50 transition-opacity duration-300">
+          {alert}
+        </div>
+      )}
     </div>
   );
 }

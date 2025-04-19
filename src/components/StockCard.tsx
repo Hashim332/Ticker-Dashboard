@@ -1,14 +1,14 @@
-import { UnifiedStock } from "../../utils";
+import { Stock } from "../../utils";
 
 type StockCardProps = {
-  stock: UnifiedStock;
+  stock: Stock;
   removeCard: (ticker: string) => void;
 };
 
 export default function StockCard({ stock, removeCard }: StockCardProps) {
-  const price = stock.currentPrice;
-  const changeAmount = stock.changeAmount;
-  const changePercentage = stock.changePercentage;
+  const currentPrice = stock.c;
+  const changeAmount = stock.d;
+  const changePercentage = stock.dp;
 
   const isPositive = changeAmount > 0;
   const emoji = isPositive ? "📈" : "📉";
@@ -37,18 +37,18 @@ export default function StockCard({ stock, removeCard }: StockCardProps) {
       <div className="space-y-1 text-sm">
         <div>
           <span className="font-medium text-gray-600">Price:</span> $
-          {price.toFixed(2)}
+          {currentPrice}
         </div>
         <div>
           <span className="font-medium text-gray-600">Change:</span>{" "}
           <span className={isPositive ? "text-green-600" : "text-red-600"}>
-            ${changeAmount.toFixed(2)}
+            ${Number(changeAmount).toFixed(2)}
           </span>
         </div>
         <div>
           <span className="font-medium text-gray-600">Change %:</span>{" "}
           <span className={isPositive ? "text-green-600" : "text-red-600"}>
-            {changePercentage.toFixed(2)}%
+            {changePercentage}%
           </span>
         </div>
       </div>

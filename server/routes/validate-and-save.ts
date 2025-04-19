@@ -51,7 +51,8 @@ router.post("/validate-and-save", requireAuth(), async (req, res) => {
       throw new Error(`API responded with status: ${finnhubResponse.status}`);
     }
 
-    const finnhubData = await finnhubResponse.json();
+    const data = await finnhubResponse.json();
+    const finnhubData = { ticker: ticker, ...data };
 
     if (isValid(finnhubData)) {
       const userRef = doc(db, "users", userId);
@@ -66,8 +67,7 @@ router.post("/validate-and-save", requireAuth(), async (req, res) => {
           tickers: [ticker],
         });
       }
-      res.json(finnhubData);
-      res.status(200).json({ message: "Data saved successfully!" });
+      res.status(200).json(finnhubData);
     } else {
       console.log("data invalid");
       res.status(500).json({ error: "Failed to save data, ticker invalid" });
