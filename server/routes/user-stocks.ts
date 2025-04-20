@@ -29,13 +29,9 @@ async function getLiveStockData(userData: DocumentData) {
     });
 
     const stockData = await Promise.all(stockDataPromises);
-    console.log(
-      "this should theortically be stock data ->",
-      stockData.filter((data) => data !== null)
-    );
     return stockData.filter((data) => data !== null); // Filter out any nulls from failed API calls
   } catch (error) {
-    console.error("Error in getLiveStockData:", error);
+    console.error("Error while getting users stocks:", error);
     throw error; // Re-throw to be caught by the route handler
   }
 }
@@ -54,17 +50,16 @@ router.get("/user-stocks", requireAuth(), async (req, res) => {
     if (docSnap.exists()) {
       const userData = docSnap.data();
       const userStockData = await getLiveStockData(userData);
-      // res.status(200).json(userData);
       res.status(200).json(userStockData);
+      return;
     } else {
       // docSnap.data() will be undefined in this case
       console.log("No such document!");
     }
-
-    // res.status(200).json(docSnap.data());
   } catch (error) {
     console.error("Database error:", error);
     res.status(500).json({ error: "Server error" });
+    return;
   }
 });
 

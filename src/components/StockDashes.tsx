@@ -5,17 +5,11 @@ import { Stock } from "../../utils";
 import { useAuth } from "@clerk/clerk-react";
 import SearchBar from "./SearchBar";
 
-// TODO:
-// get ride of the alphavantage api, only using for most traded. instead just reccommend 5 popular stick
-// do type validation on the backend if needed so logic moved to the backend
-// button click on quick add should write to db
-// render stock from users input/interaction
-
 export default function StockDashes() {
   const [stocks, setStocks] = useState<Stock[]>([]);
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const popularStocks = ["GOOG", "AAPL", "MSFT", "NVDA", "AMZN"];
-  const [alert, setAlert] = useState("");
+  const popularStocks: string[] = ["GOOG", "AAPL", "MSFT", "NVDA", "AMZN"];
+  const [alert, setAlert] = useState<string>("");
+  const [loading, setLoading] = useState(false);
   const { getToken } = useAuth();
 
   useEffect(() => {
@@ -36,7 +30,7 @@ export default function StockDashes() {
         const data = await res.json();
         if (isMounted) {
           console.log("successfully loaded users saved data: ", data);
-          setStocks(data); // Replace instead of append
+          setStocks(data);
         }
       } catch (err) {
         console.error("Request failed:", err);
@@ -65,7 +59,7 @@ export default function StockDashes() {
       );
 
       if (!res.ok) {
-        throw new Error("you on some bullshit son 😂");
+        throw new Error("Couldn't delete stock from database");
       }
       const data = await res.json();
       console.log("delete button delete from db (i think) ", data);
@@ -81,11 +75,15 @@ export default function StockDashes() {
   }
 
   async function addFromQuickAdd(ticker: string) {
+    if (loading) return; // 👈 early guard
+    setLoading(true);
+
     const isAlreadyAdded = stocks.some((stock) => stock.ticker === ticker);
     if (isAlreadyAdded) {
-      console.log("You've already added this one!");
       setAlert("Stock already added!");
       setTimeout(() => setAlert(""), 3000);
+      setLoading(false);
+      return;
     } else {
       try {
         const token = await getToken();
@@ -105,8 +103,9 @@ export default function StockDashes() {
         setStocks((prevStocks) => [...prevStocks, data]);
       } catch (err) {
         console.error("frontend error occurred: ", err);
+      } finally {
+        setLoading(false);
       }
-      console.log("quick added");
     }
   }
 

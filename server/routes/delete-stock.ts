@@ -29,6 +29,7 @@ router.delete("/delete-stock/:ticker", requireAuth(), async (req, res) => {
 
     if (!userData.tickers || !Array.isArray(userData.tickers)) {
       res.status(400).json({ error: "User has no tickers or invalid format" });
+      return;
     }
 
     const updatedUserData = userData.tickers.filter(
@@ -40,6 +41,7 @@ router.delete("/delete-stock/:ticker", requireAuth(), async (req, res) => {
     });
 
     res.status(200).json(updatedUserData);
+    return;
   } catch (err) {
     console.error("error: ", err);
   }

@@ -46,6 +46,9 @@ function App() {
             </div>
           </div>
 
+          <div className="text-center text-white text-2xl font-extrabold backdrop-blur-sm rounded-3xl mx-auto my-8 py-4 px-4">
+            Type a stock ticker and hit "Add" to pin it to your dashboard!
+          </div>
           <div className="flex-1 rounded-lg shadow-lg p-6">
             <Dashboard />
           </div>
