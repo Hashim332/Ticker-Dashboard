@@ -61,8 +61,7 @@ export default function StockDashes() {
       if (!res.ok) {
         throw new Error("Couldn't delete stock from database");
       }
-      const data = await res.json();
-      console.log("delete button delete from db (i think) ", data);
+      // const data = await res.json();
     } catch (err) {
       console.error(err);
     }

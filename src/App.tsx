@@ -12,12 +12,22 @@ function App() {
 
   useEffect(() => {
     async function getBackgroundImage() {
-      const response = await fetch(
-        "https://apis.scrimba.com/unsplash/photos/random?orientation=landscape&query=nature"
-      );
-      const data = await response.json();
-      setImageUrl(data.urls.regular);
-      setPhotographer(data.user.name);
+      try {
+        const response = await fetch(
+          "https://apis.scrimba.com/unsplash/photos/random?orientation=landscape&query=nature"
+        );
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const data = await response.json();
+        setImageUrl(data.urls.regular);
+        setPhotographer(data.user.name);
+      } catch (error) {
+        console.error("Failed to fetch background image:", error);
+        setImageUrl(null);
+        setPhotographer(null);
+      }
     }
 
     getBackgroundImage();
@@ -25,7 +35,7 @@ function App() {
 
   return (
     <div
-      className="bg-cover bg-center h-screen w-full p-6"
+      className="bg-cover bg-center min-h-screen w-full p-6"
       style={{
         backgroundImage: imageUrl ? `url(${imageUrl})` : undefined,
       }}
@@ -38,26 +48,27 @@ function App() {
 
       <SignedIn>
         <div className="flex flex-col h-full">
-          <div className="flex justify-between items-start mb-8 text-white text-5xl">
+          <div className="flex justify-between mb-8 text-white text-lg lg:text-5xl items-center">
             <Clock />
             <div className="flex items-center gap-4">
               <WeatherCard />
               <StyledUserButton />
             </div>
           </div>
-
-          <div className="text-center text-white text-2xl font-extrabold backdrop-blur-sm rounded-3xl mx-auto my-8 py-4 px-4">
+          <div className="text-center text-white text-md bg-black/70 rounded-3xl mx-auto my-8 py-4 px-4 lg:text-2xl">
             Type a stock ticker and hit "Add" to pin it to your dashboard!
           </div>
-          <div className="flex-1 rounded-lg shadow-lg p-6">
+          <div className="flex-1">
             <Dashboard />
-          </div>
-
-          <div className="mt-4 text-right">
-            <p className="text-white drop-shadow-md">By: {photographer}</p>
           </div>
         </div>
       </SignedIn>
+
+      {photographer && (
+        <div className="fixed bottom-0 right-0 p-4 text-right text-white drop-shadow-md z-10">
+          <p>By: {photographer}</p>
+        </div>
+      )}
     </div>
   );
 }

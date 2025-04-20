@@ -83,7 +83,7 @@ const WeatherCard = () => {
 
   if (error) {
     return (
-      <div className="flex items-center p-5 px-7 rounded-4xl backdrop-blur-sm shadow-md bg-gradient-to-r from-red-100 to-red-200">
+      <div className="flex items-center p-3 px-4 sm:p-5 sm:px-7 rounded-4xl backdrop-blur-sm shadow-md bg-gradient-to-r from-red-100 to-red-200">
         <span className="text-lg text-red-500 flex items-center gap-1 font-bold">
           {error}
         </span>
@@ -93,7 +93,7 @@ const WeatherCard = () => {
 
   if (!weatherData) {
     return (
-      <div className="flex items-center p-5 px-7 rounded-4xl backdrop-blur-sm shadow-md">
+      <div className="flex items-center p-3 px-4 sm:p-5 sm:px-7 rounded-4xl backdrop-blur-sm shadow-md">
         <span className="text-sm text-white flex items-center gap-1">
           ⏳ Loading weather...
         </span>
@@ -103,30 +103,32 @@ const WeatherCard = () => {
 
   return (
     <div
-      className={`flex items-center p-5 px-7 rounded-4xl backdrop-blur-sm shadow-md ${getBackgroundGradient()}`}
+      className={`flex items-center p-3 px-4 sm:p-5 sm:px-7 rounded-4xl backdrop-blur-sm shadow-md ${getBackgroundGradient()}`}
     >
       <div className="flex items-center gap-3">
         <img
           src={`https://openweathermap.org/img/wn/${weatherData.weather[0].icon}@2x.png`}
           alt={weatherData.weather[0].description}
-          className="w-12 h-12 -ml-2"
+          className="w-10 h-10 sm:w-12 sm:h-12 -ml-1 sm:-ml-2"
         />
 
-        <div className="flex flex-col">
+        <div className="flex flex-col flex-1">
           <div className="flex items-baseline gap-2">
-            <span className="text-xl font-semibold">
+            <span className="text-lg sm:text-xl font-semibold">
               {Math.round(weatherData.main.temp)}°C
             </span>
-            <span className="text-xs opacity-75">
+            <span className="hidden sm:inline text-xs opacity-75">
               feels like {Math.round(weatherData.main.feels_like)}°
             </span>
           </div>
 
-          <div className="flex flex-col text-sm">
-            <span className="capitalize">
+          <div className="flex flex-col">
+            <span className="capitalize text-xs sm:text-sm">
               {weatherData.weather[0].description}
             </span>
-            <span className="text-xs opacity-75">{weatherData.name}</span>
+            <span className="text-xs sm:text-sm opacity-75">
+              {weatherData.name}
+            </span>
           </div>
         </div>
       </div>
