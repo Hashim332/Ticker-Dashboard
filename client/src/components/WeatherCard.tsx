@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { WeatherApiResponse } from "../../utils";
+import { WeatherApiResponse } from "../../frontend-utils";
 
 const WeatherCard = () => {
   const [weatherData, setWeatherData] = useState<WeatherApiResponse | null>(

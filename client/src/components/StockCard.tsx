@@ -1,4 +1,4 @@
-import { Stock } from "../../utils";
+import { Stock } from "../../frontend-utils";
 
 type StockCardProps = {
   stock: Stock;

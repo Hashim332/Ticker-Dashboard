@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useAuth } from "@clerk/clerk-react";
-import { Stock } from "../../utils";
+import { Stock } from "../../frontend-utils";
 
 type SearchBarProps = {
   setStocks: React.Dispatch<React.SetStateAction<Stock[]>>;

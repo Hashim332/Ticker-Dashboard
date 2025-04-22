@@ -1,6 +1,6 @@
 import express from "express";
 import fetch from "node-fetch";
-import { WeatherApiResponse } from "../../utils";
+import { WeatherApiResponse } from "../backend-utils";
 import "dotenv/config";
 
 const router = express.Router();
