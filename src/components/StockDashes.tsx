@@ -18,7 +18,7 @@ export default function StockDashes() {
     async function getUserStocks() {
       try {
         const token = await getToken();
-        const res = await fetch("http://localhost:8000/api/user-stocks", {
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/user-stocks`, {
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,

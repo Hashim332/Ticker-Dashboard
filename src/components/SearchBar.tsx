@@ -19,16 +19,19 @@ export default function SearcBar({ setStocks }: SearchBarProps) {
       try {
         const token = await getToken();
 
-        const res = await fetch("http://localhost:8000/api/validate-and-save", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify({
-            ticker: inputValue,
-          }),
-        });
+        const res = await fetch(
+          `${import.meta.env.VITE_API_URL}/validate-and-save`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify({
+              ticker: inputValue,
+            }),
+          }
+        );
         const data = await res.json();
         console.log(data);
         setStocks((prevStocks) => [...prevStocks, data]);
