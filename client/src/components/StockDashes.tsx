@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import StockCard from "./StockCard";
 import QuickAdd from "./QuickAdd";
-import { Stock } from "../../utils";
+import { Stock } from "../../frontend-utils";
 import { useAuth } from "@clerk/clerk-react";
 import SearchBar from "./SearchBar";
 
