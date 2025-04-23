@@ -48,7 +48,7 @@ export default function StockDashes() {
     try {
       const token = await getToken();
       const res = await fetch(
-        `http://localhost:8000/api/delete-stock/${ticker}`,
+        `${import.meta.env.VITE_API_URL}/delete-stock/${ticker}`,
         {
           method: "DELETE",
           headers: {
@@ -87,16 +87,19 @@ export default function StockDashes() {
       try {
         const token = await getToken();
 
-        const res = await fetch("http://localhost:8000/api/validate-and-save", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify({
-            ticker: ticker,
-          }),
-        });
+        const res = await fetch(
+          `${import.meta.env.VITE_API_URL}/validate-and-save`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify({
+              ticker: ticker,
+            }),
+          }
+        );
         const data = await res.json();
         console.log(data);
         setStocks((prevStocks) => [...prevStocks, data]);
