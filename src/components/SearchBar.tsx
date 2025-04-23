@@ -45,7 +45,11 @@ export default function SearcBar({ setStocks }: SearchBarProps) {
           }
         );
         const data = await res.json();
-        console.log(data);
+        if (data.error) {
+          setAlert("Please enter a valid stock ticker");
+          setTimeout(() => setAlert(""), 3000);
+          return;
+        }
         setStocks((prevStocks) => [...prevStocks, data]);
       } catch (err) {
         console.error("frontend error occurred: ", err);
