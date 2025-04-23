@@ -38,6 +38,7 @@ async function getLiveStockData(userData: DocumentData) {
 
 router.get("/user-stocks", requireAuth(), async (req, res) => {
   const { userId } = getAuth(req);
+  console.log("BACKEND :");
 
   if (!userId) {
     res.status(400).json({ error: "Invalid user id" });

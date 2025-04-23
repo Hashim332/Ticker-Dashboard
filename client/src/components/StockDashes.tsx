@@ -17,6 +17,7 @@ export default function StockDashes() {
 
     async function getUserStocks() {
       try {
+        console.log("hey were here");
         const token = await getToken();
         const res = await fetch(`${import.meta.env.VITE_API_URL}/user-stocks`, {
           headers: {
