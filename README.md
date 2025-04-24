@@ -1,68 +1,57 @@
-📊 Ticker Dashboard
-A modern, interactive web application for tracking and visualizing real-time stock ticker data.
-Deployed live at 👉 https://tickerdashboard.co.uk
+> **Note:** live demo at [https://tickerdashboard.co.uk](https://tickerdashboard.co.uk).  
 
-🌟 Live Demo
-Experience the app instantly—no download or build steps:
+## Project Overview
 
-Visit: https://tickerdashboard.co.uk
+Ticker Dashboard is a web-only application for tracking and visualizing real-time stock data. Users can browse live quotes, interactive charts, and manage custom watchlists—all without installing or building locally.
 
-Browse: Real-time quotes, historical charts, and customizable watchlists
+## Live Demo
 
-Interact: Filter tickers, adjust date ranges, and explore performance analytics
+- **URL:** [https://tickerdashboard.co.uk](https://tickerdashboard.co.uk)  
+- No downloads, no installs—just open in your browser and explore.
 
-🚀 Key Features
-Live Price Updates
-Fetches up-to-the-second stock prices via a secure API.
+## Key Features
 
-Interactive Charts
-Render dynamic, zoomable time-series charts for any selected symbol.
+- **Live Price Updates:** Fetches up-to-the-second stock prices via a secure API.  
+- **Interactive Charts:** Zoomable, time-series visualizations for any selected ticker.  
+- **Custom Watchlists:** Create, edit, and persist personalized lists of symbols.  
+- **Responsive Design:** Fully functional on desktop and mobile browsers.  
+- **Secure Authentication:** Password-less sign-in powered by Clerk.
 
-Custom Watchlists
-Save and manage your favorite tickers in persistent user profiles.
+## Technology Stack
 
-User Authentication
-Sign up and sign in with Clerk for secure, password-less access.
+- **Frontend:** React, a component-based UI library maintained by Meta citeturn0search0turn0search9  
+- **Type Safety:** TypeScript adds static typing to JavaScript for improved tooling citeturn1search0  
+- **Build Tool:** Vite—a blazing-fast development server with Hot Module Replacement citeturn2search0  
+- **Backend:** Express.js, a minimal and flexible Node.js framework for building APIs citeturn3search0  
+- **Authentication:** Clerk for secure, password-less user management  
+- **Database:** Firebase Firestore for persisting user preferences and watchlists  
+- **Hosting:** Deployed on Netlify / Vercel under the custom domain `tickerdashboard.co.uk`
 
-Responsive Design
-Works seamlessly on desktop and mobile browsers.
+## Architecture Overview
 
-🛠️ Technology Stack
-Frontend:
+```plaintext
+Browser (React + Vite)
+           ↓
+   Clerk Authentication
+           ↓
+    Express.js API
+           ↓
+Firebase Firestore
+```
 
-React (UI components & state management)
+1. **Browser:** Loads the React app served by Vite.  
+2. **Clerk:** Handles sign-in/sign-up flows before API access.  
+3. **Express.js:** Serves mock stock-data endpoints and watchlist CRUD.  
+4. **Firebase Firestore:** Stores user-specific data securely.
 
-TypeScript (type safety & developer tooling)
+## Contributing
 
-Vite (fast dev server & optimized production build) 
-vitejs
+Improvements and UI tweaks are welcome:
 
-Backend:
+1. Fork the [GitHub repo](https://github.com/Hashim332/Ticker-Dashboard).  
+2. Create a descriptive branch (`feature/…` or `fix/…`).  
+3. Submit a pull request with a clear summary and, if relevant, screenshots.
 
-Express.js (REST API for mock stock data)
+## License
 
-Clerk (authentication & user management)
-
-Persistence:
-
-Firebase (storing user preferences and watchlists)
-
-Deployment:
-
-Netlify / Vercel (static asset hosting)
-
-Custom domain: tickerdashboard.co.uk
-
-📐 Architecture Overview
-
-┌────────────┐       ┌─────────────┐       ┌──────────────┐
-│   Browser  │ ⇄ API │ Express.js  │ ⇄ DB  │   Firebase   │
-│ (React +   │       │ (Mock Stock │       │ (User data & │
-│  Vite)     │       │  Data)      │       │  preferences)│
-└────────────┘       └─────────────┘       └──────────────┘
-      │
-      ▼
-┌────────────────────┐
-│  Clerk Auth Layer  │
-│ (Sign-in / Sign-up)│
-└────────────────────┘
+This project is licensed under the [MIT License](LICENSE).
