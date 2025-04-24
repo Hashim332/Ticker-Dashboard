@@ -33,7 +33,6 @@ export default function SearcBar({ setStocks }: SearchBarProps) {
           }
         );
         const data = await res.json();
-        console.log(data);
         setStocks((prevStocks) => [...prevStocks, data]);
       } catch (err) {
         console.error("frontend error occurred: ", err);

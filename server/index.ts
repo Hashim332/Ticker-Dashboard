@@ -30,7 +30,7 @@ app.get("/", async (req, res) => {
 });
 
 // route setup
-app.use("/api/weather", weatherRoutes);
+app.use("/api/", weatherRoutes);
 app.use("/api/", validateAndSaveRoutes);
 app.use("/api/", userStocksRoutes);
 app.use("/api/", deleteStockRoutes);

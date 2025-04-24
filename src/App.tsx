@@ -21,7 +21,8 @@ function App() {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
         const data = await response.json();
-        setImageUrl(data.urls.regular);
+        // const prefix = data;
+        setImageUrl(data.urls.full);
         setPhotographer(data.user.name);
       } catch (error) {
         console.error("Failed to fetch background image:", error);

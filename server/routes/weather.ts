@@ -1,12 +1,11 @@
 import express from "express";
-import fetch from "node-fetch";
 import { WeatherApiResponse } from "../../utils";
 import "dotenv/config";
 
 const router = express.Router();
 const API_KEY = process.env.OPENWEATHER_API_KEY;
 
-router.get("/", async (req, res) => {
+router.get("/weather", async (req, res) => {
   try {
     const { lat, lon } = req.query;
 
