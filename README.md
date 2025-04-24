@@ -11,9 +11,7 @@ Ticker Dashboard is a web-only application for tracking and visualizing real-tim
 
 ## Key Features
 
-- **Live Price Updates:** Fetches up-to-the-second stock prices via a secure API.  
-- **Interactive Charts:** Zoomable, time-series visualizations for any selected ticker.  
-- **Custom Watchlists:** Create, edit, and persist personalized lists of symbols.  
+- **Live Price Updates:** Fetches up-to-the-second stock prices via a the finnhub API.   
 - **Responsive Design:** Fully functional on desktop and mobile browsers.  
 - **Secure Authentication:** Password-less sign-in powered by Clerk.
 
