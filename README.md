@@ -19,13 +19,13 @@ Ticker Dashboard is a web-only application for tracking and visualizing real-tim
 
 ## Technology Stack
 
-- **Frontend:** React, a component-based UI library maintained by Meta citeturn0search0turn0search9  
-- **Type Safety:** TypeScript adds static typing to JavaScript for improved tooling citeturn1search0  
-- **Build Tool:** Vite—a blazing-fast development server with Hot Module Replacement citeturn2search0  
-- **Backend:** Express.js, a minimal and flexible Node.js framework for building APIs citeturn3search0  
+- **Frontend:** React, a component-based UI library maintained by Meta 
+- **Type Safety:** TypeScript adds static typing to JavaScript for improved tooling  
+- **Build Tool:** Vite—a blazing-fast development server with Hot Module Replacement 
+- **Backend:** Express.js, a minimal and flexible Node.js framework for building APIs 
 - **Authentication:** Clerk for secure, password-less user management  
 - **Database:** Firebase Firestore for persisting user preferences and watchlists  
-- **Hosting:** Deployed on Netlify / Vercel under the custom domain `tickerdashboard.co.uk`
+- **Hosting:** Deployed on Railway under the custom domain `tickerdashboard.co.uk`
 
 ## Architecture Overview
 
