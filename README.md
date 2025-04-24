@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-Ticker Dashboard is a web-only application for tracking and visualizing real-time stock data. Users can browse live quotes, interactive charts, and manage custom watchlists—all without installing or building locally.
+Ticker Dashboard is a web-only application for tracking and visualizing real-time stock data. Users can browse type in a stock ticker and add it to their dashboard.
 
 ## Live Demo
 
