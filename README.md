@@ -1,59 +1,68 @@
-<<<<<<< HEAD
-# browser-ext-scrimba
-more work on learning APIs (promise rejection) in typescript
-=======
-# React + TypeScript + Vite
+📊 Ticker Dashboard
+A modern, interactive web application for tracking and visualizing real-time stock ticker data.
+Deployed live at 👉 https://tickerdashboard.co.uk
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+🌟 Live Demo
+Experience the app instantly—no download or build steps:
 
-Currently, two official plugins are available:
+Visit: https://tickerdashboard.co.uk
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Browse: Real-time quotes, historical charts, and customizable watchlists
 
-## Expanding the ESLint configuration
+Interact: Filter tickers, adjust date ranges, and explore performance analytics
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+🚀 Key Features
+Live Price Updates
+Fetches up-to-the-second stock prices via a secure API.
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+Interactive Charts
+Render dynamic, zoomable time-series charts for any selected symbol.
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Custom Watchlists
+Save and manage your favorite tickers in persistent user profiles.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+User Authentication
+Sign up and sign in with Clerk for secure, password-less access.
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
->>>>>>> b8d2aa0 (Initial commit: React TypeScript Vite project setup)
+Responsive Design
+Works seamlessly on desktop and mobile browsers.
+
+🛠️ Technology Stack
+Frontend:
+
+React (UI components & state management)
+
+TypeScript (type safety & developer tooling)
+
+Vite (fast dev server & optimized production build) 
+vitejs
+
+Backend:
+
+Express.js (REST API for mock stock data)
+
+Clerk (authentication & user management)
+
+Persistence:
+
+Firebase (storing user preferences and watchlists)
+
+Deployment:
+
+Netlify / Vercel (static asset hosting)
+
+Custom domain: tickerdashboard.co.uk
+
+📐 Architecture Overview
+
+┌────────────┐       ┌─────────────┐       ┌──────────────┐
+│   Browser  │ ⇄ API │ Express.js  │ ⇄ DB  │   Firebase   │
+│ (React +   │       │ (Mock Stock │       │ (User data & │
+│  Vite)     │       │  Data)      │       │  preferences)│
+└────────────┘       └─────────────┘       └──────────────┘
+      │
+      ▼
+┌────────────────────┐
+│  Clerk Auth Layer  │
+│ (Sign-in / Sign-up)│
+└────────────────────┘
