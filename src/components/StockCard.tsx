@@ -9,22 +9,19 @@ export default function StockCard({ stock, removeCard }: StockCardProps) {
   const currentPrice = stock.c;
   const changeAmount = stock.d;
   const changePercentage = stock.dp;
+
   const isPositive = changeAmount > 0;
   const emoji = isPositive ? "📈" : "📉";
 
   return (
     <div
-      className={`
-        w-full           /* take 100% width on small screens */
-        rounded-xl shadow-md p-3 md:p-6 md:px-10 
-        font-sans text-gray-800 flex flex-col justify-center
-        ${
-          isPositive
-            ? "bg-gradient-to-br from-green-50 via-white to-green-100"
-            : "bg-gradient-to-br from-red-50 via-white to-red-100"
-        }
-        border border-white
-      `}
+      className={`w-full sm:w-auto rounded-xl shadow-md p-3 md:p-6 md:px-10 font-sans text-gray-800 flex flex-col justify-center
+    ${
+      isPositive
+        ? "bg-gradient-to-br from-green-50 via-white to-green-100"
+        : "bg-gradient-to-br from-red-50 via-white to-red-100"
+    }
+    border border-white`}
     >
       <div className="flex flex-row justify-between items-center">
         <div className="text-base md:text-lg font-bold text-gray-900 mb-1 md:mb-2 flex items-center gap-1 md:gap-2">
