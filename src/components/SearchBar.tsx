@@ -4,11 +4,12 @@ import { Stock } from "../../utils";
 
 type SearchBarProps = {
   setStocks: React.Dispatch<React.SetStateAction<Stock[]>>;
+  stocks: Stock[];
 };
 
 const REMOVE_DISALLOWED_REGEX = /[^a-zA-Z]/g;
 
-export default function SearcBar({ setStocks }: SearchBarProps) {
+export default function SearcBar({ setStocks, stocks }: SearchBarProps) {
   const [inputValue, setInputValue] = useState<string>("");
   const [alert, setAlert] = useState<string>("");
   const { getToken } = useAuth();
@@ -27,6 +28,14 @@ export default function SearcBar({ setStocks }: SearchBarProps) {
   }
 
   async function sendTickers() {
+    const isAlreadyAdded = stocks.some((stock) => stock.ticker === inputValue);
+    if (isAlreadyAdded) {
+      setAlert("That stock already exists!");
+      setTimeout(() => setAlert(""), 3000);
+      setInputValue("");
+      return;
+    }
+
     if (inputValue) {
       try {
         const token = await getToken();

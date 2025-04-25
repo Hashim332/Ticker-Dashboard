@@ -114,7 +114,7 @@ export default function StockDashes() {
   return (
     <div>
       <div>
-        <SearchBar setStocks={setStocks} />
+        <SearchBar setStocks={setStocks} stocks={stocks} />
       </div>
       <div className="p-4">
         <QuickAdd onClick={addFromQuickAdd} popularStocks={popularStocks} />
