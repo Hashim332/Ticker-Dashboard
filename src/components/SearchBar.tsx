@@ -26,6 +26,12 @@ export default function SearcBar({ setStocks }: SearchBarProps) {
     setInputValue(cleanedValue.toUpperCase());
   }
 
+  function handleKeyDown(e: React.KeyboardEvent<HTMLInputElement>) {
+    if (e.key === "Enter") {
+      sendTickers();
+    }
+  }
+
   async function sendTickers() {
     if (inputValue) {
       try {
@@ -65,6 +71,7 @@ export default function SearcBar({ setStocks }: SearchBarProps) {
           maxLength={4}
           value={inputValue}
           onChange={handleChange}
+          onKeyDown={handleKeyDown}
           type="text"
           name="search"
           placeholder="Enter stock here..."
