@@ -126,6 +126,19 @@ export default function StockDashes() {
               removeCard={removeCard}
             />
           ))}
+          {loading && (
+            <div className="w-full sm:w-auto rounded-xl shadow-md p-3 md:p-4 md:px-10 font-sans text-gray-800 flex flex-col justify-center border border-white animate-pulse bg-white">
+              <div className="flex flex-row justify-between items-center mb-1 md:mb-4">
+                <div className="h-5 md:h-6 bg-gray-300 rounded w-20 md:w-22"></div>
+                <div className="w-6 h-6 md:w-7 md:h-7 bg-gray-300 rounded-full"></div>
+              </div>
+              <div className="space-y-0.5 md:space-y-1 text-xs md:text-sm">
+                <div className="h-3.5 bg-gray-300 rounded w-24"></div>
+                <div className="h-3.5 bg-gray-300 rounded w-24"></div>
+                <div className="h-3.5 bg-gray-300 rounded w-20"></div>
+              </div>
+            </div>
+          )}
         </div>
         {alert && (
           <div className="fixed bottom-4 left-1/2 transform -translate-x-1/2 bg-red-500 text-white px-4 py-2 rounded-lg shadow-lg z-50 transition-opacity duration-300">

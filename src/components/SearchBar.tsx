@@ -34,6 +34,13 @@ export default function SearcBar({ setStocks, stocks }: SearchBarProps) {
   }
 
   async function sendTickers() {
+    if (inputValue === "") {
+      setAlert("Please enter a valid stock ticker!");
+      setTimeout(() => setAlert(""), 3000);
+      setInputValue("");
+      return;
+    }
+
     const isAlreadyAdded = stocks.some((stock) => stock.ticker === inputValue);
     if (isAlreadyAdded) {
       setAlert("That stock already exists!");
