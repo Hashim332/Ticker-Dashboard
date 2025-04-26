@@ -65,7 +65,7 @@ function App() {
       </SignedIn>
 
       {photographer && (
-        <div className="fixed bottom-0 right-0 p-4 text-right text-white drop-shadow-md z-10">
+        <div className="fixed bottom-0 right-0 p-2 text-right text-white drop-shadow-md z-10 bg-black/70 rounded-xl">
           <p>Photo by: {photographer}</p>
         </div>
       )}
